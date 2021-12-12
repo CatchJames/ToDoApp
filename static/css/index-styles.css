@@ -1,0 +1,21 @@
+#ptag{
+    font-size: 0.7rem;
+    color: grey;
+}
+
+#task-div{
+    border: solid silver 1px;
+    border-radius: 0.25rem;
+    background-color: white;
+    margin: 10px;
+    padding: 10px;
+}
+
+.completed{
+    background-color: #eeeeee;
+    text-decoration: line-through;
+}
+
+.not-completed{
+    background-color: white;
+}

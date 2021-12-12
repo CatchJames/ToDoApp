@@ -1,0 +1,69 @@
+{% extends 'Todo/base.html' %}
+{% load static %}
+<!-- Index/Add page -->
+
+
+{% block title %}
+    <title>Index</title>
+{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href={% static 'css/index-styles.css' %}>
+{% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="row input-group">
+
+            <form action="{% url 'add' %}" method="post">
+                <div class="input-group mb-3">
+                    {% csrf_token %}
+                {{ form.task }}
+                <button type="submit" class="btn btn-primary">ADD</button>
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+
+       {% for task in tasks %}  {# For each task in ToDo model #}
+            {% if task.completed %}
+                <div id="task-div" class="row my-5 mx-4 border rounded completed">
+                    <div class="col-lg-6 col-12 text-start">
+                        <p class="fw-bold">{{ task.task }}</p>
+                        <p id="ptag">Created at: {{ task.created_at }}</p>
+                    </div>
+
+                    <div class="col-lg-6 col-12 text-lg-end text-start">
+                        <a role="button" class="btn btn-primary" href= "{% url 'update' task.id %}">Update</a>
+                        <a role="button" class="btn btn-danger" href="{% url 'delete' task.id %}" >Delete</a>
+                    </div>
+                </div>
+
+            {% else %}
+                <div id="task-div" class="row my-5 mx-4 border rounded not-completed">
+                    <div class="col-lg-6 col-12 text-start">
+                        <p class="fw-bold">{{ task.task }}</p>
+                        <p id="ptag">Created at: {{ task.created_at }}</p>
+                    </div>
+
+                    <div class="col-lg-6 col-12 text-lg-end text-start">
+                        <a role="button" class="btn btn-success" href="{% url 'completed' task.id %}">Completed</a>
+                        <a role="button" class="btn btn-primary" href= "{% url 'update' task.id %}">Update</a>
+                        <a role="button" class="btn btn-danger" href="{% url 'delete' task.id %}" >Delete</a>
+                    </div>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
